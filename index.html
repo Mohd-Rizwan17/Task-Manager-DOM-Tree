@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager & DOM Tree</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Task Manager & DOM Lab</h1>
+      <button id="theme-toggle" class="btn">Toggle Dark Mode</button>
+    </header>
+
+    <main class="container">
+      <section class="card-wrapper">
+        <h2>1. Task Creation & Controls</h2>
+        <form id="task-form">
+          <div class="form-group">
+            <label for="task-title">Task Title</label>
+            <input
+              type="text"
+              id="task-title"
+              placeholder="Learn DOM Architecture..."
+              value="Default Task text"
+            />
+          </div>
+          <div class="form-group">
+            <label for="task-category">Category</label>
+            <select id="task-category">
+              <option value="Work">Work</option>
+              <option value="Personal">Personal</option>
+              <option value="Education">Education</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Task</button>
+        </form>
+
+        <div class="controls-row">
+          <input type="text" id="search-input" placeholder="Search tasks..." />
+          <select id="filter-category">
+            <option value="all">All Categories</option>
+            <option value="Work">Work</option>
+            <option value="Personal">Personal</option>
+            <option value="Education">Education</option>
+          </select>
+          <button id="clear-all-btn" class="btn btn-danger">
+            Clear All Tasks
+          </button>
+        </div>
+
+        <div class="counters">
+          <span>Pending Tasks: <strong id="pending-count">0</strong></span>
+          <span>Completed Tasks: <strong id="completed-count">0</strong></span>
+        </div>
+      </section>
+
+      <section class="card-wrapper">
+        <h2>2. Active Tasks</h2>
+        <div id="task-list"></div>
+      </section>
+
+      <div class="lab-dashboard">
+        <section class="lab-card">
+          <h3>
+            <span class="icon">&lt;/&gt;</span> Attributes vs Properties Demo
+          </h3>
+          <p class="subtitle">
+            See the difference between <code>input.value</code> and
+            <code>getAttribute("value")</code>
+          </p>
+
+          <div class="form-group mt-3">
+            <label>Input Field</label>
+            <input type="text" id="demo-input" value="Hello World" />
+          </div>
+
+          <button id="show-diff-btn" class="btn btn-purple mt-2">
+            Show Difference
+          </button>
+
+          <div class="console-box mt-3">
+            <p class="console-label">Console Output</p>
+            <div class="console-log">
+              <span class="code-ref">input.value</span>
+              <div id="prop-output" class="log-text green-text">-</div>
+            </div>
+            <div class="console-log mt-2">
+              <span class="code-ref">input.getAttribute("value")</span>
+              <div id="attr-output" class="log-text green-text">-</div>
+            </div>
+          </div>
+
+          <div class="info-alert mt-3">
+            <span class="info-icon">ℹ</span>
+            <p>
+              <code>input.value</code> returns the current value property, while
+              <code>getAttribute("value")</code> returns the initial HTML
+              attribute value.
+            </p>
+          </div>
+        </section>
+
+        <section class="lab-card">
+          <h3><span class="icon">↓</span> Event Propagation Demo</h3>
+
+          <div id="grandparent" class="nest-box grandparent-nest mt-3">
+            <div class="nest-label">
+              Grandparent <span class="label-sub">(Capture / Bubble)</span>
+            </div>
+
+            <div id="parent" class="nest-box parent-nest">
+              <div class="nest-label">
+                Parent <span class="label-sub">(Capture / Bubble)</span>
+              </div>
+
+              <button id="child-btn" class="btn btn-nested">
+                Child Button <span class="label-sub">(Click Me)</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="prop-actions mt-3">
+            <button id="btn-bubbling-toggle" class="btn btn-outline-green">
+              Start Bubbling
+            </button>
+            <button id="btn-capturing-toggle" class="btn btn-blue">
+              Start Capturing
+            </button>
+          </div>
+
+          <div class="console-box mt-3">
+            <p class="console-label">Console Output</p>
+            <div id="propagation-log-label" class="code-ref">
+              Click the button or control options above
+            </div>
+            <div id="propagation-output" class="log-text mt-1">-</div>
+          </div>
+
+          <div id="propagation-info-box" class="info-alert mt-3">
+            <span class="info-icon">ℹ</span>
+            <p id="propagation-desc">
+              Click "Start Capturing" or "Start Bubbling" to see phase flows.
+            </p>
+          </div>
+        </section>
+
+        <section class="lab-card">
+          <h3><span class="icon">💻</span> Browser Rendering Pipeline</h3>
+
+          <div class="pipeline-grid mt-3">
+            <div class="pipeline-branch">
+              <div class="pipe-node pill-purple">HTML</div>
+              <div class="pipe-arrow">↓</div>
+              <div class="pipe-node pill-purple">Parsing</div>
+              <div class="pipe-arrow">↓</div>
+              <div class="pipe-node pill-purple">Tokenization</div>
+              <div class="pipe-arrow">↓</div>
+              <div class="pipe-node pill-green">DOM Tree</div>
+            </div>
+
+            <div class="pipeline-operators">
+              <div class="op-space"></div>
+              <div class="op-sign">+</div>
+              <div class="op-space"></div>
+              <div class="op-space"></div>
+            </div>
+
+            <div class="pipeline-branch">
+              <div class="op-space"></div>
+              <div class="pipe-node pill-blue">CSS</div>
+              <div class="pipe-arrow">↓</div>
+              <div class="pipe-node pill-blue">Parsing</div>
+              <div class="pipe-arrow">↓</div>
+              <div class="pipe-node pill-green">CSSOM Tree</div>
+            </div>
+          </div>
+
+          <div class="pipeline-merge">
+            <div class="merge-arrows">
+              <span>↓</span>
+              <span>↓</span>
+            </div>
+            <div class="pipe-node pill-dark-green">DOM Tree + CSSOM Tree</div>
+            <div class="pipe-arrow">↓</div>
+            <div class="pipe-node pill-orange">
+              <span class="bullet"></span> Render Tree
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
